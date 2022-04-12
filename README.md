@@ -21,12 +21,14 @@ STAC Collection: JSON object containing additional info describing the spatial a
 STAC Item: a GeoJSON feature with descriptive attributes that define its time range and assets; a collection of inseparable data & metadata. Represented in a flexible JSON format. Can indlude additonal fields & JSON structures for further customizing data searches. [More about STAC Item Specification](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md)
 
 The SBG-SHIFT STAC Catalog is grouped into the following hierarchy:
-
-SBG-SHIFT STAC Catalog
--AVIRIS-NG (Collection)
-   -<flight line> (Item)
-  
-where 'flight line' is a STAC item of date form `YYYYMMDD` (see below). For each of these items, there are assets/datasets of form `angYYYYMMDDtHHNNSS.zarr`, a GeoJSON file of the flight outline, and an RGB composite image. 
+```
+SBG-SHIFT STAC Catalog 
+│
+└─── AVIRIS-NG (Collection)
+│   │
+│   └─── <flight line> (Item)
+```
+where <flight line> is a STAC item of date form `YYYYMMDD` (see below). For each of these items, there are assets/datasets of form `angYYYYMMDDtHHNNSS.zarr`, a GeoJSON file of the flight outline, and an RGB composite image. 
   
 YYYY:  The year of the airborne flight run.
 MM:    The month of the airborne flight run (i.e. 05 represents May).
