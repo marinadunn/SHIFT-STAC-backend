@@ -29,11 +29,11 @@ SBG-SHIFT STAC Catalog
 │   └─── <flight line> (Item)
 ```
 where <flight line> is a STAC item of date form `YYYYMMDD` (see below). For each of these items, there are assets/datasets of form `angYYYYMMDDtHHNNSS.zarr`, a GeoJSON file of the flight outline, and an RGB composite image. 
-  
+```  
 YYYY:  The year of the airborne flight run.
 MM:    The month of the airborne flight run (i.e. 05 represents May).
 DD:    The day of the airborne flight run (22 is the 22nd day of the month).
 HH:    UTC hour at the start of acquisition
 NN:    UTC minute at the start of acquisition
 SS:    UTC second at the start of acquisition
-  
+```  
