@@ -1,0 +1,28 @@
+# If issues appear when trying to load zarr, cfgrib, try 'pip install xarray[complete]'
+python>=3.8 # pin version for conda
+proj
+pyproj
+pystac-client
+hvplot
+geoviews
+geopandas
+fiona
+cartopy
+rioxarray
+s3fs
+pooch
+xarray
+shapely
+earthpy
+zarr
+shapely
+pandas
+h5py
+matplotlib
+numpy
+dask
+rasterio
+holoviews
+pathlib
+GDAL
+boto3
