@@ -1,4 +1,4 @@
-# SHIFT-STAC
+# SHIFT-STAC-backend
 Repo for the Surface Biology and Geology (SBG) SHIFT AVIRIS-NG campaign
 
 Includes pipeline for zarr archive creation, and STAC Catalog creation/addition for [AVIRIS-NG campaign(Airborne Visible InfraRed Imaging Spectrometer)](https://avirisng.jpl.nasa.gov). Examples are provided in mainly Python, with some R examples.
