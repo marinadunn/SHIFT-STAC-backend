@@ -1,5 +1,5 @@
 # If issues appear when trying to load zarr, cfgrib, try 'pip install xarray[complete]'
-python>=3.8 # pin version for conda
+python>=3.8
 proj
 pyproj
 pystac-client
