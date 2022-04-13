@@ -5,8 +5,13 @@ Includes pipeline for zarr archive creation, and STAC Catalog creation/addition 
 
 [Data products portal](https://avirisng.jpl.nasa.gov/dataportal/)
 
+Raw files include:
+-`requirements.txt`: the complete list of required packages
+-`get_aviris_data.py`: the script to download AVIRIS data from https://avng.jpl.nasa.gov/pub/SHIFT/v0/ given a user-specified date
+-`make_zarr.py`: the script for creating Zarr archives 
+-`run_make_zarr_parallel.py`: the script for submitting a SLURM job to create a Zarr archive for a specified item
+
 ## Pipeline
-The complete list of required packages is provided in `requirements.txt`.
 
 The pipeline is currently set up to be run on the NASA CENTER FOR CLIMATE SIMULATION (NCCS) high-performance supercomputing cluster ["Discover"](https://www.nccs.nasa.gov/systems/discover). After logging into the cluster, it can be run by executing the bash script `pipeline.sh`. 
 
