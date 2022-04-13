@@ -6,9 +6,13 @@ Includes pipeline for zarr archive creation, and STAC Catalog creation/addition 
 [Data products portal](https://avirisng.jpl.nasa.gov/dataportal/)
 
 Raw files include:
+
 -`requirements.txt`: the complete list of required packages
+
 -`get_aviris_data.py`: the script to download AVIRIS data from https://avng.jpl.nasa.gov/pub/SHIFT/v0/ given a user-specified date
+
 -`make_zarr.py`: the script for creating Zarr archives 
+
 -`run_make_zarr_parallel.py`: the script for submitting a SLURM job to create a Zarr archive for a specified item
 
 ## Pipeline
