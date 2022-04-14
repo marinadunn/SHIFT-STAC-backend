@@ -11,7 +11,7 @@ Files include:
 
 -`make_zarr.py`: the script for creating Zarr archives 
 
--`run_make_zarr_parallel.py`: the script for submitting a SLURM job to create a Zarr archive for a specified item
+-`run_make_zarr_parallel.py`: the script for submitting a SLURM job to create a Zarr archive for a specified flight path.
 
 ## Pipeline
 
