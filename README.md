@@ -9,9 +9,13 @@ Files include:
 
 -`get_aviris_data.py`: the script to download AVIRIS data from https://avng.jpl.nasa.gov/pub/SHIFT/v0/ given a user-specified date
 
--`make_zarr.py`: the script for creating Zarr archives 
+-`make_zarr.py`: the script for creating Zarr archives. Takes in an `item` (AVIRIS flight path), `chunking` scheme, `data_path` (specified output save directory), and `store_path` (full specified output save directory including Zarr filename). These are set up as arguments in the function `main(opts)` in Line 91. Outputs a georeferenced Zarr archive saved to the directory defined in `store_path` in `main(opts)`.
 
--`run_make_zarr_parallel.py`: the script for submitting a SLURM job to create a Zarr archive for a specified flight path.
+To save the Zarr archive to a desired location, modify the arguments for `username`, `folder_name`, and `dataset_date` in the function `setup_opts()`, and `store_path` in the function ` main(opts)`. `dataset_date` should correspond to the date in `YYYYMMDD` format for which there is SHIFT AVIRIS-NG data. To modify the chunking strategy , modify the arguments for `x_chunk`, `y_chunk`, and `wavelength_chunk` in the function `setup_opts()`. The argument `item` can also be modified to be explicitly defined in the function `setup_opts()`; or, if using this in combination with `run_make_zarr_parallel.py`, simply leave as is and modify `aviris_data` in `run_make_zarr_parallel.py`.
+
+-`run_make_zarr_parallel.py`: the script for submitting a SLURM job to create a Zarr archive for a specified flight path. Takes in a `username`, `folder_name`, and `dataset_date` to specify the output save directory, and an integer value for `x_chunk`, `y_chunk`, and `wavelength_chunk` to define the chunking scheme, and an `item` (AVIRIS flight path) defined by a string in the list `aviris_data`. All of these are defined in `main()`. Creates a SLURM job and runs `make_zarr.py` and saves a georeferenced Zarr archive to the specified output save directory. 
+
+To modify the location where the Zarr archive is saved , modify `username`, `folder_name`, and `dataset_date` in the function `main()`. To modify the chunking strategy , modify the values for `x_chunk`, `y_chunk`, and `wavelength_chunk` in the function `main()`. To change the `item` or flight path, modify the `aviris_data` list in `main()`.
 
 ## Pipeline
 
