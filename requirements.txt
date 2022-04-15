@@ -10,7 +10,7 @@ fiona
 cartopy
 rioxarray
 s3fs
-fsspec
+cfgrib
 pooch
 xarray
 shapely
@@ -34,3 +34,7 @@ packaging
 pyparsing
 python-dateutil
 wget
+fsspec>=0.8.4
+intake>=0.5.1
+intake-xarray>=0.4
+pystac>=1.0.0
