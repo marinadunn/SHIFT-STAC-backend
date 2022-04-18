@@ -32,7 +32,7 @@ This does the following steps:
 9. Downloads flight path data.
 10. Checks for Zarr creation scripts `make_zarr.py` and `run_make_zarr_parallel.py`. If not already present, downloads them from GitHub.
 11. Runs SLURM job to create desired Zarr archives and plots.
-12. Uploads zarr archives and plots to the AWS s3://dh-shift-curated/ S3 bucket.
+12. Uploads zarr archives to the AWS s3://dh-shift-curated/ S3 bucket.
 
 ## STAC
 The SpatioTemporal Asset Catalog (STAC) specifies a standard language for structuring and querying geospatial data and metadata. The STAC specification is designed around the extensibility & flexibility of JSON, and is comprised of Catalogs, Collections, Items, and the API.
