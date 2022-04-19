@@ -95,14 +95,8 @@ echo "*** Start time: $(date) *** "
 # Automatically writes a bash file for each flight path in dataset list & 
 # launches it as a Slurm job
 python3 run_make_zarr_parrallel.py
-
-### Upload zarr archives to SHIFT S3 bucket
-# 'aws s3 sync' synchronizes the contents of a bucket and a directory
-# Make sure to use corresponding bucket defined in run_make_zarr_parrallel.py where zarrs are saved
-VAR = "ang20220228t201833_100-100-100.zarr" # change this
-aws s3 sync aviris/20220228/"${VAR}" s3://dh-shift-curated/aviris/20220228/"${VAR}"
 echo "*** End time: $(date) *** "
 
 # Remove zarr files to free space
 echo "Removing Zarrs locally"
-rm -r aviris/20220228/"${VAR}"
+rm -r aviris/20220228/*.zarr
