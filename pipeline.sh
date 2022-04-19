@@ -11,9 +11,8 @@ cd /discover/nobackup/projects/SBG-DO/sbg-do/$folder
 pwd
 
 ### Load NCCS Python 3.9 module
-module load wget/1.20.3
 module load python/GEOSpyD/Min4.10.3_py3.9
-echo "Modules loaded"
+echo "Module loaded"
 
 ### Check if virtual environment already exists. If not, create it.
 # venv is already loaded as part of NCCS
