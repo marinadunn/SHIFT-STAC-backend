@@ -7,6 +7,7 @@ import numpy as np
 import geopandas as gpd
 import os
 import zarr
+import s3fs
 import warnings
 warnings.filterwarnings("ignore")
 
@@ -89,7 +90,7 @@ def make_zarr(item, chunking, data_path, store_path):
 def setup_opts():
     parser = argparse.ArgumentParser()
     parser.add_argument('--username', type=str, default='mmdunn1', help='username')
-    # If wanting to save zarr archives in separate folde, modify folder_name and dataset_date
+    # If wanting to save zarr archives in separate folder within working directory, modify folder_name and dataset_date
     parser.add_argument('--folder_name', type=str, default='', help='data folder')
     parser.add_argument('--dataset_date', type=str, default='', help='dataset date')
     parser.add_argument('--x_chunk', type=int, default=100, help='chunk size in x, set 0 for no chunking')
@@ -116,6 +117,20 @@ def main(opts):
     print(f'Store path: {store_path}', flush=True)
 
     make_zarr(item, chunking, data_path, store_path)
+    
+    # Upload zarr to s3
+    s3 = s3fs.S3FileSystem(anon=False, client_kwargs=dict(region_name='us-west-2'))
+    
+    bucket = 'dh-shift-curated'
+    key = f'testing/aviris/{dataset_date}'
+    s3_key = os.path.join(bucket, key)
+    s3_path = f's3://{s3_key}'
+    
+    zarr_files = glob.glob('*.zarr*')
+    for f in zarr_files:
+        s3.put(file, s3_path + '{}'.format(file), recursive=True)
+        
+    print("S3 move done\n")
 
 if __name__ == '__main__':
     opts = setup_opts()
