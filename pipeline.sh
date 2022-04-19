@@ -6,8 +6,8 @@ echo "AWS MFA configured"
 
 ### Change to desired location (working directory)
 echo "Change to working directory"
-read -p varname "Enter folder in /discover/nobackup/projects/SBG-DO/: "
-cd /discover/nobackup/projects/SBG-DO/sbg-do/$varname
+read -p folder "Enter folder in /discover/nobackup/projects/SBG-DO/: "
+cd /discover/nobackup/projects/SBG-DO/sbg-do/$folder
 pwd
 
 ### Load NCCS Python 3.9 module
@@ -19,12 +19,12 @@ echo "Modules loaded"
 # venv is already loaded as part of NCCS
 function try()
 { # try
-    echo "Checking if virtual environment exists..."
+    echo "Checking if virtual environment 'shift-env' exists..."
     # activate desired venv
     source shift_env/bin/activate
 } ||
 { # catch
-    echo "Virtual environment does not exist, creating now."
+    echo "Virtual environment 'shift-env' does not exist, creating now."
     # create venv
     python3 -m venv shift-env
     # activate desired venv
@@ -36,12 +36,12 @@ function try()
 { # try
     echo "Checking if requirements.txt exists..."
     ls requirements.txt
-    echo "File Found"
+    echo "requirements.txt found"
     echo "Installing packages"
     python3 -m pip install -r requirements.txt
 } ||
 { # catch
-    echo "File not found, downloading from Github"
+    echo "requirements.txt not found, downloading from Github"
     wget https://github.com/marinadunn/SHIFT-STAC-backend/blob/main/requirements.txt?raw=true
     ### Install all the necessary packages
     echo "Installing packages"
@@ -53,17 +53,17 @@ function try()
 { # try
     echo "Checking if get_aviris_data.py exists..."
     ls get_aviris_data.py
-    echo "File Found"
+    echo "get_aviris_data.py found"
     echo "Downloading data"
     python3 get_aviris_data.py
-    echo "Download Complete"
+    echo "Download complete"
 } ||
 { # catch
-    echo "File not found, downloading from Github"
+    echo "get_aviris_data.py not found, downloading from Github"
     wget https://github.com/marinadunn/SHIFT-STAC-backend/blob/main/get_aviris_data.py?raw=true
     echo "Downloading data"
     python3 get_aviris_data.py
-    echo "Download Complete"
+    echo "Download complete"
 }
 
 echo "Using Python: $(which python)"
@@ -71,22 +71,21 @@ echo "Using Python: $(which python)"
 { # try
     echo "Checking for zarr creation scripts"
     ls make_zarr.py
-    echo "File 1 Found"
+    echo "make_zarr.py found"
 } ||
 { # catch
-    echo "File 1 not found, downloading from Github"
+    echo "make_zarr.py not found, downloading from Github"
     wget https://github.com/marinadunn/SHIFT-STAC-backend/blob/main/make_zarr.py?raw=true
-    echo "File 1 Downloaded"
+    echo "make_zarr.py downloaded"
 }
 { # try
-    echo "Checking for zarr creation scripts"
     ls run_make_zarr_parallel.py
-    echo "File 2 Found"
+    echo "run_make_zarr_parallel.py found"
 } ||
 { # catch
-    echo "File 2 not found, downloading from Github"
+    echo "run_make_zarr_parallel.py not found, downloading from Github"
     wget https://github.com/marinadunn/SHIFT-STAC-backend/blob/main/run_make_zarr_parallel.py?raw=true
-    echo "File 2 Downloaded"
+    echo "run_make_zarr_parallel.py downloaded"
 }
 
 ### Automate SLURM job to create georeferenced zarr archives for flight paths
