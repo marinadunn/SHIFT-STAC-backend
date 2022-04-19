@@ -92,8 +92,8 @@ def setup_opts():
     # If wanting to save zarr archives in separate folde, modify folder_name and dataset_date
     parser.add_argument('--folder_name', type=str, default='', help='data folder')
     parser.add_argument('--dataset_date', type=str, default='', help='dataset date')
-    parser.add_argument('--x_chunk', type=int, default=50, help='chunk size in x, set 0 for no chunking')
-    parser.add_argument('--y_chunk', type=int, default=50, help='chunk size in y, set 0 for no chunking')
+    parser.add_argument('--x_chunk', type=int, default=100, help='chunk size in x, set 0 for no chunking')
+    parser.add_argument('--y_chunk', type=int, default=100, help='chunk size in y, set 0 for no chunking')
     parser.add_argument('--wavelength_chunk', type=int, default=100, help='chunk size in wavelength, set 0 for no chunking')
     parser.add_argument('--item', type=str, help='name of flight path')
     return parser.parse_args()
