@@ -13,7 +13,10 @@ warnings.filterwarnings("ignore")
 def make_zarr(item, chunking, data_path, store_path):
 
     print('\tProcessing igm file...', flush=True)
-    # Read the igm file under L1/
+    # Read the igm file
+    # NOTE: this path works if original data downloaded is not in folder_name == 'aviris_data'
+    # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
+    # igm_path = os.path.join(data_path, f"{item}_rdn_igm")
     igm_path = f"{item}_rdn_igm"
     igm = xr.open_dataset(igm_path, engine='rasterio')
 
@@ -37,6 +40,9 @@ def make_zarr(item, chunking, data_path, store_path):
 
     print('\tProcessing rfl file...', flush=True)
     # Read the rfl file under L2a/
+    # NOTE: this path works if original data downloaded is not in folder_name == 'aviris_data'
+    # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
+    # rfl_path = os.path.join(data_path, f"{item}_rfl")
     rfl_path = f"{item}_rfl"
     rfl = xr.open_dataset(rfl_path, engine='rasterio')
 
@@ -51,6 +57,9 @@ def make_zarr(item, chunking, data_path, store_path):
 
     print('\tProcessing rdn file...', flush=True)
     # Read the rdn file under L1/
+    # NOTE: this path works if original data downloaded is not in folder_name == 'aviris_data'
+    # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
+    # rdn_path = os.path.join(data_path, f"{item}_rdn_v2z4_clip")
     rdn_path = f"{item}_rdn_v2z4_clip"
     rdn = xr.open_dataset(rdn_path, engine='rasterio')
 
@@ -80,6 +89,7 @@ def make_zarr(item, chunking, data_path, store_path):
 def setup_opts():
     parser = argparse.ArgumentParser()
     parser.add_argument('--username', type=str, default='mmdunn1', help='username')
+    # If wanting to save zarr archives in separate folde, modify folder_name and dataset_date
     parser.add_argument('--folder_name', type=str, default='', help='data folder')
     parser.add_argument('--dataset_date', type=str, default='', help='dataset date')
     parser.add_argument('--x_chunk', type=int, default=50, help='chunk size in x, set 0 for no chunking')
