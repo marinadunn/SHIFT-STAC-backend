@@ -15,7 +15,7 @@ pooch
 xarray
 shapely
 earthpy
-zarr
+zarr>=2.4.0
 shapely
 pandas
 h5py
@@ -28,7 +28,7 @@ GDAL
 boto3
 affine
 attrs
-dask
+dask>=2.14.0
 numcodecs
 packaging
 pyparsing
