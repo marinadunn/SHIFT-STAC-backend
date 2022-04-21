@@ -23,6 +23,8 @@ To modify the chunking strategy , modify the values for `x_chunk`, `y_chunk`, an
 
 -`pipeline.sh`: automated pipeline for downloading data, creating zarr and uploading to S3, start to finish.
 
+-`create_stac.py`: script for creating initial SBG-SHIFT STAC Catalog with STAC Collection AVIRIS-NG and STAC Items of zarr archives flight paths '20220224' and '20220228', along with assets of jpegs of RGB True Color, RGB enhanced, and R, G, and B bands plotted separately. Note that the RGB composite images are not yet georeferenced, while bands plotted separately are.
+
 ## Pipeline
 
 The pipeline is currently set up to be run on the NASA CENTER FOR CLIMATE SIMULATION (NCCS) high-performance supercomputing cluster ["Discover"](https://www.nccs.nasa.gov/systems/discover). It can be run by executing the bash script `pipeline.sh`. 
