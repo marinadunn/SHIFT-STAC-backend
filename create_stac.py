@@ -241,9 +241,12 @@ for zarr in data:
     collection.add_item(item)
     print(f"Item {zarr} added!")
 
-# saving to working dir, then upload to s3
+# Add collection to catalog
+catalog.add_child(collection)
+
+# Save catalog to working dir, then upload to s3
 tmp_dir = TemporaryDirectory()
 catalog.normalize_hrefs(os.path.join(tmp_dir.name, 'SBG-SHIFT'))
-collection.save(pystac.CatalogType.SELF_CONTAINED)
+collection.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
 # upload to s3
 s3.put('SBG-SHIFT', f"s3://dh-shift-curated/aviris/" + "{}".format('SBG-SHIFT'), recursive=True)
