@@ -3,7 +3,7 @@ Repo for the Surface Biology and Geology (SBG) SHIFT AVIRIS-NG campaign
 
 Includes pipeline for zarr archive creation, and STAC Catalog creation/addition for [AVIRIS-NG campaign(Airborne Visible InfraRed Imaging Spectrometer)](https://avirisng.jpl.nasa.gov). [More info on AVIRIS-NG data products](https://avirisng.jpl.nasa.gov/dataportal/)
 
-Files include:
+**Files include:**
 
 -`requirements.txt`: complete list of required packages
 
@@ -25,6 +25,8 @@ To modify the chunking strategy , modify the values for `x_chunk`, `y_chunk`, an
 
 -`create_stac.py`: script for creating initial SBG-SHIFT STAC Catalog with STAC Collection AVIRIS-NG and STAC Items of zarr archives flight paths '20220224' and '20220228', along with assets of jpegs of RGB True Color, RGB enhanced, and R, G, and B bands plotted separately. Note that the RGB composite images are not yet georeferenced, while bands plotted separately are.
 
+--------------------------------------------------------------------------------------------------------
+
 ## Pipeline
 
 The pipeline is currently set up to be run on the NASA CENTER FOR CLIMATE SIMULATION (NCCS) high-performance supercomputing cluster ["Discover"](https://www.nccs.nasa.gov/systems/discover). It can be run by executing the bash script `pipeline.sh`. 
@@ -43,16 +45,18 @@ This does the following steps:
 10. Checks for Zarr creation scripts `make_zarr.py` and `run_make_zarr_parallel.py`. If not already present, downloads them from GitHub.
 11. Runs automated SLURM job to create desired Zarr archives and uploads to S3.
 
-## STAC
+--------------------------------------------------------------------------------------------------------
+
+## STAC Specifics
 The SpatioTemporal Asset Catalog (STAC) specifies a standard language for structuring and querying geospatial data and metadata. The STAC specification is designed around the extensibility & flexibility of JSON, and is comprised of Catalogs, Collections, Items, and the API.
 
-STAC Catalog: JSON object that contains list of STAC Items, or other child STAC Catalogs. Can be further extended to include additional metadata. No restictions for organization; typically uses ‘sub-catalog’ groupings. [More about STAC Catalog Specification](https://github.com/radiantearth/stac-spec/tree/master/catalog-spec)
+**STAC Catalog**: JSON object that contains list of STAC Items, or other child STAC Catalogs. Can be further extended to include additional metadata. No restictions for organization; typically uses ‘sub-catalog’ groupings. [More about STAC Catalog Specification](https://github.com/radiantearth/stac-spec/tree/master/catalog-spec)
 
-STAC Collection: JSON object containing additional info describing the spatial and temporal extents of data; extension of Catalog. Can be further extended to include additional metadata. [More about STAC Collection Specification](https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md)
+**STAC Collection**: JSON object containing additional info describing the spatial and temporal extents of data; extension of Catalog. Can be further extended to include additional metadata. [More about STAC Collection Specification](https://github.com/radiantearth/stac-spec/blob/master/collection-spec/collection-spec.md)
 
-STAC Item: a GeoJSON feature with descriptive attributes that define its time range and assets; a collection of inseparable data & metadata. Represented in a flexible JSON format. Can indlude additonal fields & JSON structures for further customizing data searches. [More about STAC Item Specification](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md)
+**STAC Item**: GeoJSON feature with descriptive attributes that define its time range and assets; a collection of inseparable data & metadata. Represented in a flexible JSON format. Can indlude additonal fields & JSON structures for further customizing data searches. [More about STAC Item Specification](https://github.com/radiantearth/stac-spec/blob/master/item-spec/item-spec.md)
 
-The SBG-SHIFT STAC Catalog is grouped into the following hierarchy:
+STAC Catalog hierarchy:
 ```
 SBG-SHIFT STAC Catalog 
 │
@@ -60,7 +64,8 @@ SBG-SHIFT STAC Catalog
 │   │
 │   └─── <flight line> (Item)
 ```
-where <flight line> is a STAC item of date form `YYYYMMDD` (see below). For each of these items, there are assets/datasets of form `angYYYYMMDDtHHNNSS.zarr`, a GeoJSON file of the flight outline, and an RGB composite image. 
+where the STAC item is a dataset for one flight line of date form `YYYYMMDD` (see below). For each of these items, the dataset is an asset of form `angYYYYMMDDtHHNNSS.zarr`, as well as assets for jpegs of RGB True Color, RGB enhanced, and R, G, and B bands plotted separately. Note that the RGB composite images are not yet georeferenced, while bands plotted separately are.
+
 ```  
 YYYY:  The year of the airborne flight run.
 MM:    The month of the airborne flight run (i.e. 05 represents May).
