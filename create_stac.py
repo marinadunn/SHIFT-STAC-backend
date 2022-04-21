@@ -234,9 +234,11 @@ def make_plots(dataset_date, zarr):
     print("Plots done!")
     
     # Upload jpegs to s3
-    jpg_files = glob.glob("*.jpg*")
-    for f in jpg_files:
-        s3.put(f, f"s3://dh-shift-curated/aviris/{dataset_date}/" + "{}".format(f))
+    s3.put(f"{zarr}_RGB_Reflectance_True_Color.jpg", f"s3://dh-shift-curated/aviris/{dataset_date}/" + "{}".format(f"{zarr}_RGB_Reflectance_True_Color.jpg"))
+    s3.put(f"{zarr}_RGB_Increased_Exposure_Reflectance.jpg", f"s3://dh-shift-curated/aviris/{dataset_date}/" + "{}".format(f"{zarr}_RGB_Increased_Exposure_Reflectance.jpg"))
+    s3.put(f"{zarr}_R_Reflectance.jpg", f"s3://dh-shift-curated/aviris/{dataset_date}/" + "{}".format(f"{zarr}_R_Reflectance.jpg"))
+    s3.put(f"{zarr}_G_Reflectance.jpg", f"s3://dh-shift-curated/aviris/{dataset_date}/" + "{}".format(f"{zarr}_G_Reflectance.jpg"))
+    s3.put(f"{zarr}_B_Reflectance.jpg", f"s3://dh-shift-curated/aviris/{dataset_date}/" + "{}".format(f"{zarr}_B_Reflectance.jpg"))
     print("S3 upload done!")
 
 def add_assets(dataset_date, item, zarr):
