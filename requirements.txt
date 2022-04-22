@@ -1,5 +1,5 @@
 # If issues appear when trying to load zarr, cfgrib, try 'pip install xarray[complete]'
-python>=3.8
+# python>=3.8 # not needed if on SMCE
 affine
 attrs
 boto3
@@ -30,7 +30,7 @@ proj
 pyparsing
 pyproj
 pystac-client
-pystac>=1.0.0
+pystac>=1.4.0
 pystac[validation]
 python-dateutil
 rasterio
@@ -38,6 +38,5 @@ rioxarray
 s3fs
 sat-stac
 shapely
-venv
 xarray[complete]
 zarr>=2.4.0
