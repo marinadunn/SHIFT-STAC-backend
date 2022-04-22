@@ -15,9 +15,9 @@ geoviews
 h5py
 holoviews
 hvplot
-intake-xarray>=0.4
-intake
-intake-stac>=1.0.0
+intake-xarray>=0.6.0
+intake>=0.6.5
+intake-stac>=0.3.0
 jupyterlab
 matplotlib
 notebook
