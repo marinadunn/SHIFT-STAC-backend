@@ -16,7 +16,7 @@ h5py
 holoviews
 hvplot
 intake-xarray>=0.4
-intake>=0.5.1
+intake>=1.0.0
 jupyterlab
 matplotlib
 notebook
