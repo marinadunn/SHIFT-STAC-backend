@@ -25,26 +25,26 @@ def make_slurm_script(username, folder_name, dataset_date,
 def main():
     username = 'mdunn'
     folder_name = 'aviris_data'
-    dataset_date = '20220228'
+    dataset_date = '20220308'
     x_chunk = 100
     y_chunk = 100
     wavelength_chunk = 100
-    # 20220228 flight paths
-    aviris_data = [
-                'ang20220228t183924',
-                'ang20220228t185150',
-                'ang20220228t18572',
-                'ang20220228t190702',
-                'ang20220228t192104',
-                'ang20220228t193333',
-                'ang20220228t194708',
-                'ang20220228t195958',
-                'ang20220228t201833',
-                'ang20220228t202944',
-                'ang20220228t204228',
-                'ang20220228t205624',
-                'ang20220228t210940'
-                ]
+    aviris_data = ['ang20220308t183206',
+                    'ang20220308t184127',
+                    'ang20220308t185140',
+                    'ang20220308t190523',
+                    'ang20220308t191151',
+                    'ang20220308t192816',
+                    'ang20220308t194253',
+                    'ang20220308t195648',
+                    'ang20220308t201508',
+                    'ang20220308t202617',
+                    'ang20220308t204043',
+                    'ang20220308t205512',
+                    'ang20220308t211733',
+                    'ang20220308t213310',
+                    'ang20220308t214629'
+                    ]
     for item in aviris_data:
         slurm_path = make_slurm_script(username, folder_name, dataset_date,
                                         x_chunk, y_chunk, wavelength_chunk, item)
