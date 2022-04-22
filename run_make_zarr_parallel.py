@@ -29,6 +29,10 @@ def main():
     x_chunk = 100
     y_chunk = 100
     wavelength_chunk = 100
+<<<<<<< HEAD
+=======
+    # 20220308 flight paths
+>>>>>>> 238c93e5fc51d5f0c311cddce6bf2a1642bdca89
     aviris_data = ['ang20220308t183206',
                     'ang20220308t184127',
                     'ang20220308t185140',
