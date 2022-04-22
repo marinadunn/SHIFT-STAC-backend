@@ -28,7 +28,6 @@ from datetime import date
 from datetime import datetime
 from urllib.parse import urlparse
 from pprint import pprint
-from tempfile import TemporaryDirectory
 
 import pystac
 from pystac.extensions.eo import EOExtension
@@ -245,8 +244,9 @@ for zarr in data:
 catalog.add_child(collection)
 
 # Save catalog to working dir, then upload to s3
-tmp_dir = TemporaryDirectory()
-catalog.normalize_hrefs(os.path.join(tmp_dir.name, 'SBG-SHIFT'))
-collection.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
+catalog.normalize_hrefs('SBG-SHIFT')
+catalog.validate_all()
+catalog.save(catalog_type=pystac.CatalogType.SELF_CONTAINED)
 # upload to s3
 s3.put('SBG-SHIFT', f"s3://dh-shift-curated/aviris/" + "{}".format('SBG-SHIFT'), recursive=True)
+print('S3 upload done!')
