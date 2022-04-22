@@ -30,7 +30,7 @@ proj
 pyparsing
 pyproj
 pystac-client
-pystac>=1.4.0
+pystac>=1.2.0
 pystac[validation]
 python-dateutil
 rasterio
