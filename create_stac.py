@@ -1,33 +1,22 @@
 import rioxarray
-import rasterio
-from rasterio.transform import Affine
-from rasterio.plot import plotting_extent
-from rasterio.crs import CRS
 import xarray as xr
 import numpy as np
 
 import os
-import boto3
 import s3fs
 import glob
 import pathlib
-
 import dask.array
 import pandas as pd
 
 import geopandas as gpd
-import shapely.geometry
 from shapely.geometry import box, mapping, Polygon
-from shapely.coords import CoordinateSequence
 import warnings
 
 import json
 import shutil
 import tempfile
-from datetime import date
-from datetime import datetime
-from urllib.parse import urlparse
-from pprint import pprint
+from datetime import date, datetime
 
 import pystac
 from pystac.extensions.eo import EOExtension
@@ -97,7 +86,6 @@ def get_zarrs(Bucket, dataset_date):
             
     data_set = set(links)
     data = list(data_set)
-    #pprint(data)
     return data
 
 def create_item(dataset_date, zarr):
