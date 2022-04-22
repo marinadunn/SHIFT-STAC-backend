@@ -1,6 +1,7 @@
 # python>=3.8 # not needed if on SMCE
 affine
 attrs
+bokeh
 boto3
 cartopy
 cfgrib
