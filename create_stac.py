@@ -50,11 +50,18 @@ dt1 = datetime(2022, 2, 28, 0)
 dt2 = datetime(2022, 5, 31, 0)
 collection_interval = sorted([dt1, dt2])
 temporal_extent = pystac.TemporalExtent(intervals=[collection_interval])
-
-collection = pystac.Collection(id="AVIRIS-NG",
-                               description="SBG-SHIFT AVIRIS_NG data",
-                               license = "MIT",
-                               extent=temporal_extent
+spatial_extent = pystac.SpatialExtent([ 
+        [705900,  3868100, 0],
+        [825900,  3868100, 0],
+        [825900,  3802100, 0],
+        [705900,  3802100, 0],
+        [705900,  3868100, 0] 
+        ])
+extent = pystac.Extent(spatial_extent, temporal_extent)
+collection = pystac.Collection(id='AVIRIS-NG',
+                               description='SBG-SHIFT AVIRIS_NG data',
+                               license = 'MIT',
+                               extent=extent
                               )
 
 collection.providers = [
