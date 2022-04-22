@@ -1,43 +1,26 @@
 import rioxarray
-import rasterio
-from rasterio.transform import Affine
-from rasterio.plot import plotting_extent
-from rasterio.crs import CRS
 import xarray as xr
 import numpy as np
 
 import os
-import boto3
 import s3fs
 import glob
 import pathlib
 
 import dask.array
 import pandas as pd
-import intake
 import matplotlib
 import matplotlib.pyplot as plt
 
 import geopandas as gpd
-import shapely.geometry
 from shapely.geometry import box, mapping, Polygon
-from shapely.coords import CoordinateSequence
 import warnings
+warnings.filterwarnings("ignore")
 
 import json
 import shutil
 import tempfile
-from datetime import date
-from datetime import datetime
-from urllib.parse import urlparse
-from pprint import pprint
-
-import pystac
-from pystac.extensions.eo import EOExtension
-from pystac.extensions.projection import ProjectionExtension
-from pystac.extensions.view import ViewExtension
-#  Suppress warnings issued by Cartopy when downloading data files
-warnings.filterwarnings("ignore")
+from datetime import date, datetime
 
 # Connect to AWS S3 storage
 s3 = s3fs.S3FileSystem(anon=False, client_kwargs=dict(region_name="us-west-2"))
