@@ -1,63 +1,39 @@
-import requests
+import os
 '''
 For SHIFT data, for a singular date, there are multiple flight paths, all of which 
 have files that are required to make a Zarr archive. For L1 files, we need the igm,
 igm.hdr, rdn, & rdn.hdr files. For L2a files, we need rfl & rfl.hdr.
 '''
-
-def get_L1(flight_path, date):
-    # Making a get request
-    r = requests.get(igm_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_igm', 'wb').write(r.content)
-
-    r = requests.get(igm_hdr_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_igm.hdr', 'wb').write(r.content)
-
-    r = requests.get(rdn_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_v2z4_clip', 'wb').write(r.content)
-
-    r = requests.get(rdn_hdr_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_v2z4_clip.hdr', 'wb').write(r.content)
-    
-def get_L2(flight_path, date):
-    # Making a get request       
-    r = requests.get(rfl_url, allow_redirects=True)
-    open(f'{flight_path}_rfl', 'wb').write(r.content)
-
-    r = requests.get(rfl_hdr_url, allow_redirects=True)
-    open(f'{flight_path}_rfl.hdr', 'wb').write(r.content)
-
-def get_all(flight_path, date):
-    # Making a get request
-    r = requests.get(igm_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_igm', 'wb').write(r.content)
-
-    r = requests.get(igm_hdr_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_igm.hdr', 'wb').write(r.content)
-
-    r = requests.get(rdn_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_v2z4_clip', 'wb').write(r.content)
-
-    r = requests.get(rdn_hdr_url, allow_redirects=True)
-    open(f'{flight_path}_rdn_v2z4_clip.hdr', 'wb').write(r.content)
-
-    r = requests.get(rfl_url, allow_redirects=True)
-    open(f'{flight_path}_rfl', 'wb').write(r.content)
-
-    r = requests.get(rfl_hdr_url, allow_redirects=True)
-    open(f'{flight_path}_rfl.hdr', 'wb').write(r.content)
-
 date = input("Enter date of format YYYYMMDD: ")
 flight_path = input("Enter flight path of format angYYYYMMDDtHHNNSS, or 'all' for all flight paths: ")
 data = input("Download 'all' data, 'L1' data only, or 'L2' data only? [all/L1/L2]: ")
 
-igm_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/{flight_path}_rdn_igm"
-rdn_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/{flight_path}_rdn_v2z4_clip"
-rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/{flight_path}_rfl"
+def get_L1(flight_path, date):
+    igm_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/{flight_path}_rdn_igm"
+    rdn_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/{flight_path}_rdn_v2z4_clip"
+    igm_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/{flight_path}_rdn_igm.hdr"
+    rdn_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/{flight_path}_rdn_v2z4_clip.hdr"
 
-igm_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/{flight_path}_rdn_igm.hdr"
-rdn_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/{flight_path}_rdn_v2z4_clip.hdr"
-rfl_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/{flight_path}_rfl.hdr"
+    os.system('wget %s' %igm_url)
+    os.system('wget %s' %igm_hdr_url)
+    os.system('wget %s' %rdn_url)
+    os.system('wget %s' %rdn_hdr_url)
+    
+def get_L2(flight_path, date):
+    rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/{flight_path}_rfl"
+    rfl_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/{flight_path}_rfl.hdr"
+
+    os.system('wget %s' %rfl_url)
+    os.system('wget %s' %rfl_hdr_url)
+
+def get_all(date):
+    igm_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/"
+    rdn_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/"
+    rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/"
+
+    os.system('wget %s' %igm_url)
+    os.system('wget %s' %rdn_url)
+    os.system('wget %s' %rfl_url)
 
 data_20220224 = [
             'ang20220224t195402',
@@ -174,33 +150,7 @@ data_20220412 = ['ang20220412t185410',
 dates = ['20220224', '20220228', '20220308', '20220316', '20220322', '20220405', '20220412']
 
 if date in dates and flight_path == 'all':        
-    if date == '20220224':
-        for flight_path in data_20220224:
-            get_all(flight_path, date)
-
-    elif date == '20220228':
-        for flight_path in data_20220228:
-            get_all(flight_path, date)
-
-    elif date == '20220308':
-        for flight_path in data_20220308:
-            get_all(flight_path, date)
-
-    elif date == '20220316':
-        for flight_path in data_20220316:
-            get_all(flight_path, date)
-
-    elif date == '20220322':
-        for flight_path in data_20220322:
-            get_all(flight_path, date)
-
-    elif date == '20220405':
-        for flight_path in data_20220405:
-            get_all(flight_path, date)
-
-    elif date == '20220412':
-        for flight_path in data_20220412:
-            get_all(flight_path, date)
+    get_all(date)
 
 elif date in dates and flight_path != 'all' and data == 'L1':
     get_L1(flight_path, date)
@@ -209,7 +159,8 @@ elif date in dates and flight_path != 'all' and data == 'L2':
     get_L2(flight_path, date)
 
 elif date in dates and flight_path != 'all' and data == 'all':
-    get_all(flight_path, date)
+    get_L1(flight_path, date)
+    get_L2(flight_path, date)
 else:
     print("Data not found") # will add additional dates later as they become available
     exit
