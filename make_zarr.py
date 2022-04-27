@@ -18,8 +18,8 @@ def make_zarr(item, chunking, data_path, store_path):
     # NOTE: this path works if original data downloaded is not in folder_name == 'aviris_data'
     # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
     # igm_path = os.path.join(data_path, f"{item}_rdn_igm")
-    #igm_path = f"{item}_rdn_igm"
-    igm_path = os.path.join(data_path, f"{item}_rdn_igm")
+    igm_path = f"{item}_rdn_igm"
+    #igm_path = os.path.join(data_path, f"{item}_rdn_igm")
     igm = xr.open_dataset(igm_path, engine='rasterio')
 
     # Define easting, northing, elevation
@@ -45,8 +45,8 @@ def make_zarr(item, chunking, data_path, store_path):
     # NOTE: this path works if original data downloaded is not in folder_name == 'aviris_data'
     # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
     # rfl_path = os.path.join(data_path, f"{item}_rfl")
-    #rfl_path = f"{item}_rfl"
-    rfl_path = os.path.join(data_path, f"{item}_rfl")
+    rfl_path = f"{item}_rfl"
+    #rfl_path = os.path.join(data_path, f"{item}_rfl")
     rfl = xr.open_dataset(rfl_path, engine='rasterio')
 
     # Swap to be able to select based on wavelength
@@ -63,8 +63,8 @@ def make_zarr(item, chunking, data_path, store_path):
     # NOTE: this path works if original data downloaded is not in folder_name == 'aviris_data'
     # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
     # rdn_path = os.path.join(data_path, f"{item}_rdn_v2z4_clip")
-    #rdn_path = f"{item}_rdn_v2z4_clip"
-    rdn_path = os.path.join(data_path, f"{item}_rdn_v2z4_clip")
+    rdn_path = f"{item}_rdn_v2z4_clip"
+    #rdn_path = os.path.join(data_path, f"{item}_rdn_v2z4_clip")
     rdn = xr.open_dataset(rdn_path, engine='rasterio')
 
     # Swap to be able to select based on wavelength
