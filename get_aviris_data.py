@@ -31,9 +31,9 @@ def get_all(date):
     rdn_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/"
     rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/"
 
-    os.system('wget %s' %igm_url)
-    os.system('wget %s' %rdn_url)
-    os.system('wget %s' %rfl_url)
+    os.system('wget -r --no-parent %s' %igm_url)
+    os.system('wget -r --no-parent %s' %rdn_url)
+    os.system('wget -r --no-parent %s' %rfl_url)
 
 data_20220224 = [
             'ang20220224t195402',
