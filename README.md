@@ -1,29 +1,27 @@
 # SHIFT-STAC-backend
-Repo for the Surface Biology and Geology (SBG) SHIFT AVIRIS-NG campaign
-
-Includes pipeline for zarr archive creation, and STAC Catalog creation/addition for [AVIRIS-NG campaign(Airborne Visible InfraRed Imaging Spectrometer)](https://avirisng.jpl.nasa.gov). [More info on AVIRIS-NG data products](https://avirisng.jpl.nasa.gov/dataportal/)
+Repo for the Surface Biology and Geology (SBG) SHIFT AVIRIS-NG campaign data pipeline, including Zarr archive creation, and STAC Catalog creation/addition for [AVIRIS-NG campaign(Airborne Visible InfraRed Imaging Spectrometer)](https://avirisng.jpl.nasa.gov). [More info on AVIRIS-NG data products](https://avirisng.jpl.nasa.gov/dataportal/)
 
 **Files include:**
 
 -`requirements.txt`: complete list of required packages
 
--`get_aviris_data.py`: script to download AVIRIS data from https://avng.jpl.nasa.gov/pub/SHIFT/v0/ given a user-specified SHIFT date, and data details
+-`get_aviris_data.py`: script to download SHIFT AVIRIS-NG data from https://avng.jpl.nasa.gov/pub/SHIFT/v0/ 
 
--`make_zarr.py`: script for creating Zarr archives. Takes in an `item` (AVIRIS flight path), `chunking` scheme, `data_path` (specified output save directory), and `store_path` (full specified output save directory including Zarr filename). These are set up as arguments in the function `main(opts)` in Line 91. Outputs a georeferenced Zarr archive saved to the directory defined in `store_path` in `main(opts)`. Uploads to S3 bucket.
+-`make_zarr.py`: script for creating Zarr archives. Args: `item` (AVIRIS flight path), `chunking` scheme, `data_path` (specified output save directory), and `store_path` (full specified output save directory including Zarr filename). Set up as arguments in the function `main(opts)`. Output: georeferenced Zarr archive, saved to the directory defined by `store_path` in `main(opts)`.
 
-To change Zarr archive save location: modify `username`, `folder_name`, and `dataset_date` in the function `setup_opts()`, and `store_path` in the function ` main(opts)`. `dataset_date` should correspond to the date in `YYYYMMDD` format for which there is SHIFT AVIRIS-NG data. 
+To change Zarr output location: modify `username`, `folder_name`, and `dataset_date` in `setup_opts()`, and `store_path` in the function ` main(opts)`. `dataset_date` should correspond to the date in `YYYYMMDD` format for which there is SHIFT AVIRIS-NG data. 
 
-To change chunking strategy: modify the arguments for `x_chunk`, `y_chunk`, and `wavelength_chunk` in the function `setup_opts()`. `item` can also be modified to be explicitly defined in the function `setup_opts()`; or, if using this in combination with `run_make_zarr_parallel.py`, simply leave as is and modify list `aviris_data` in `run_make_zarr_parallel.py`.
+To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk` in `setup_opts()`. `item` can also be modified to be explicitly defined in the function `setup_opts()`; or, if using this in combination with `run_make_zarr_parallel.py`, simply leave as is and modify list `aviris_data` in `run_make_zarr_parallel.py`.
 
--`run_make_zarr_parallel.py`: script for submitting automated SLURM job to create Zarr archive for a specified flight path. Takes in a `username`, `folder_name`, and `dataset_date` to specify the output save directory, and an integer value for `x_chunk`, `y_chunk`, and `wavelength_chunk` to define the chunking scheme, and an `item` (AVIRIS flight path) defined by a string in the list `aviris_data`. All of these are defined in `main()`. Runs `make_zarr.py` and saves a georeferenced Zarr archive. 
+-`run_make_zarr_parallel.py`: script for submitting automated SLURM job to create Zarr archive for specified flight paths. Args: `username`, `folder_name`, and `dataset_date` (specifies the output save directory), and an integer value for `x_chunk`, `y_chunk`, and `wavelength_chunk` (defines chunking scheme), and `item` (AVIRIS flight path), all defined in `main()`. This modifies the run template `run_template.sh`, runs Python script `make_zarr.py`, and saves the georeferenced Zarr archive. 
 
-To change Zarr archive save location: modify `username`, `folder_name`, and `dataset_date` in the function `main()`. 
+To change Zarr output location: modify `username`, `folder_name`, and `dataset_date` in `main()`. 
 
-To modify the chunking strategy , modify the values for `x_chunk`, `y_chunk`, and `wavelength_chunk` in the function `main()`. To change the `item` or flight path, modify the `aviris_data` list in `main()`.
+To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk` in `main()`. To change the `item` or flight path, modify `aviris_data` list in `main()`.
 
--`pipeline.sh`: automated pipeline for downloading data, creating zarr and uploading to S3, start to finish.
+-`pipeline.sh`: automated pipeline for downloading AVIRIS-NG data, creating Zarr archives, creating STAC Catalog, and uploading to S3.
 
--`create_stac.py`: script for creating initial SBG-SHIFT STAC Catalog with STAC Collection AVIRIS-NG and STAC Items of zarr archives flight paths '20220224' and '20220228', along with assets of jpegs of RGB True Color, RGB enhanced, and R, G, and B bands plotted separately. Note that the RGB composite images are not yet georeferenced, while bands plotted separately are.
+-`create_stac.py`: script for creating STAC Catalog of AVIRIS-NG data. STAC Items are Zarr archives from various flight paths.
 
 --------------------------------------------------------------------------------------------------------
 
@@ -64,7 +62,7 @@ SBG-SHIFT STAC Catalog
 │   │
 │   └─── <flight line> (Item)
 ```
-where the STAC item is a dataset for one flight line of date form `YYYYMMDD` (see below). For each of these items, the dataset is an asset of form `angYYYYMMDDtHHNNSS.zarr`, as well as assets for jpegs of RGB True Color, RGB enhanced, and R, G, and B bands plotted separately. Note that the RGB composite images are not yet georeferenced, while bands plotted separately are.
+where each STAC item is a flight line of format `angYYYYMMDDtHHNNSS`, and its asset is the Zarr dataset of format `angYYYYMMDDtHHNNSS.zarr`.
 
 ```  
 YYYY:  The year of the airborne flight run.
