@@ -14,26 +14,26 @@ def get_L1(flight_path, date):
     igm_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/{flight_path}_rdn_igm.hdr"
     rdn_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/{flight_path}_rdn_v2z4_clip.hdr"
 
-    os.system('wget %s' %igm_url)
-    os.system('wget %s' %igm_hdr_url)
-    os.system('wget %s' %rdn_url)
-    os.system('wget %s' %rdn_hdr_url)
+    os.system('wget -nd-b %s' %igm_url)
+    os.system('wget -nd -b %s' %igm_hdr_url)
+    os.system('wget -nd -b %s' %rdn_url)
+    os.system('wget -nd -b %s' %rdn_hdr_url)
     
 def get_L2(flight_path, date):
     rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/{flight_path}_rfl"
     rfl_hdr_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/{flight_path}_rfl.hdr"
 
-    os.system('wget %s' %rfl_url)
-    os.system('wget %s' %rfl_hdr_url)
+    os.system('wget -nd -b %s' %rfl_url)
+    os.system('wget -nd -b %s' %rfl_hdr_url)
 
 def get_all(date):
     igm_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/"
     rdn_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/"
     rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/"
 
-    os.system('wget -r --no-parent %s' %igm_url)
-    os.system('wget -r --no-parent %s' %rdn_url)
-    os.system('wget -r --no-parent %s' %rfl_url)
+    os.system('wget -r -b -nd -N --no-parent -nH %s' %igm_url)
+    os.system('wget -r -b -nd -N --no-parent -nH %s' %rdn_url)
+    os.system('wget -r -b -nd -N --no-parent -nH %s' %rfl_url)
 
 data_20220224 = [
             'ang20220224t195402',
@@ -149,7 +149,20 @@ data_20220412 = ['ang20220412t185410',
 
 dates = ['20220224', '20220228', '20220308', '20220316', '20220322', '20220405', '20220412']
 
-if date in dates and flight_path == 'all':        
+if date in dates and flight_path == 'all' and data == 'L1':    
+    igm_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/igm/"
+    rdn_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L1/rdn/"
+    
+    # wget: retrieve recursively, send to background, do not save in directories, don't ascend to parent directory
+    os.system('wget -r -b -nd -N --no-parent -nH %s' %igm_url)
+    os.system('wget -r -b -nd -N --no-parent -nH %s' %rdn_url)
+
+elif date in dates and flight_path == 'all' and data == 'L2':   
+    rfl_url = f"https://avng.jpl.nasa.gov/pub/SHIFT/v0/{date}/L2a/"
+
+    os.system('wget -r -b -nd -N --no-parent -nH %s' %rfl_url)
+
+elif date in dates and flight_path == 'all' and data == 'all':   
     get_all(date)
 
 elif date in dates and flight_path != 'all' and data == 'L1':
