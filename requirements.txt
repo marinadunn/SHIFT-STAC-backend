@@ -38,5 +38,6 @@ rioxarray
 s3fs
 sat-stac
 shapely
+'stackstac[viz]'
 xarray[complete]
 zarr>=2.4.0
