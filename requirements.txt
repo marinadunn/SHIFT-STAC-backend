@@ -18,6 +18,7 @@ hvplot
 intake-xarray>=0.6.0
 intake>=0.6.5
 intake-stac>=0.3.0
+jsonschema==3.2.0
 jupyterlab
 matplotlib
 notebook
@@ -32,8 +33,9 @@ pyparsing
 pyproj
 pystac-client
 pystac>=1.2.0
-python-dateutil
+python-dateutil>=2.7.0
 rasterio
+requests==2.25
 rioxarray
 s3fs
 sat-stac
