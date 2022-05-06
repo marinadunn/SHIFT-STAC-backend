@@ -7,17 +7,15 @@ Repo for the Surface Biology and Geology (SBG) SHIFT AVIRIS-NG campaign data pip
 
 -`get_aviris_data.py`: script to download SHIFT AVIRIS-NG data from https://avng.jpl.nasa.gov/pub/SHIFT/v0/ 
 
--`make_zarr.py`: script for creating Zarr archives. Args: `item` (AVIRIS flight path), `chunking` scheme, `data_path` (specified output save directory), and `store_path` (full specified output save directory including Zarr filename). Set up as arguments in the function `main(opts)`. Output: georeferenced Zarr archive, saved to the directory defined by `store_path` in `main(opts)`.
+-`make_zarr.py`: script for creating Zarr archives. Args: `item` (AVIRIS flight path), `chunking` scheme, `data_path` (specified output save directory), and `store_path` (full specified output save directory including Zarr filename). Output: georeferenced Zarr archive, saved to the directory defined by `store_path` in `main(opts)`.
 
-To change Zarr output location: modify `username`, `folder_name`, and `dataset_date` in `setup_opts()`, and `store_path` in the function ` main(opts)`. `dataset_date` should correspond to the date in `YYYYMMDD` format for which there is SHIFT AVIRIS-NG data. 
+To change Zarr output location: modify `store_path` in the function ` main(opts)`.
 
-To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk` in `setup_opts()`. `item` can also be modified to be explicitly defined in the function `setup_opts()`; or, if using this in combination with `run_make_zarr_parallel.py`, simply leave as is and modify list `aviris_data` in `run_make_zarr_parallel.py`.
+-`run_make_zarr_parallel.py`: script for submitting automated SLURM job to create Zarr archive. Args: `username`, `folder_name`, and `dataset_date`, and an integer value for `x_chunk`, `y_chunk`, and `wavelength_chunk` (defines chunking scheme), and `item` (AVIRIS flight path), all defined in `main()`. This script modifies the run template `run_template.sh`, runs Python script `make_zarr.py`, and saves the georeferenced Zarr archive. 
 
--`run_make_zarr_parallel.py`: script for submitting automated SLURM job to create Zarr archive for specified flight paths. Args: `username`, `folder_name`, and `dataset_date` (specifies the output save directory), and an integer value for `x_chunk`, `y_chunk`, and `wavelength_chunk` (defines chunking scheme), and `item` (AVIRIS flight path), all defined in `main()`. This modifies the run template `run_template.sh`, runs Python script `make_zarr.py`, and saves the georeferenced Zarr archive. 
+To change Zarr output location: modify `folder_name` in `main()`, and `username` and `dataset_date` as input args from `pipeline.sh`.
 
-To change Zarr output location: modify `username`, `folder_name`, and `dataset_date` in `main()`. 
-
-To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk` in `main()`. To change the `item` or flight path, modify `aviris_data` list in `main()`.
+To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk` in `main()`. To explicitly change the `item` or flight path, modify `aviris_data` list in `main()`; otherwise, will be changed by `dataset_date` input arg from `pipeline.sh`.
 
 -`pipeline.sh`: automated pipeline for downloading AVIRIS-NG data, creating Zarr archives, creating STAC Catalog, and uploading to S3.
 
@@ -34,14 +32,14 @@ Prerequisites: AWS credentials configured. Any changes to scripts already comple
 This does the following steps:
 1. Runs a specific AWS MFA script, prompting user for MFA code to connect to SHIFT's AWS S3 buckets.
 2. Changes to the desired working directory based on user input
-3. Loads the Python 3.9 module
-4. Checks if the virtual environment `shift-env` already exists. If so, activates it. If not, creates it then activates it.
-6. Checks for the `requirements.txt` file. If not already present, downloads from GitHub.
-7. Installs all the necessary packages from requirements.txt
-8. Checks for SHIFT AVIRIS data download script `get_aviris_data.py`. If not already present, downloads from GitHub.
-9. Downloads flight path data.
-10. Checks for Zarr creation scripts `make_zarr.py` and `run_make_zarr_parallel.py`. If not already present, downloads them from GitHub.
-11. Runs automated SLURM job to create desired Zarr archives and uploads to S3.
+3. Checks if the virtual environment `shift-env` already exists. If so, activates it. If not, creates it then activates it.
+4. Loads the Python 3.9 module
+5. Checks for the `requirements.txt` file. If not already present, downloads from GitHub. Installs necessary packages from requirements.txt
+6. Takes dataset date, flight path, and data type (L1, L2, both) as user input args.
+7. Checks for SHIFT AVIRIS data download script `get_aviris_data.py`. If not already present, downloads from GitHub.
+8. Downloads flight path data.
+9. Checks for Zarr creation scripts `make_zarr.py` and `run_make_zarr_parallel.py`. If not already present, downloads them from GitHub.
+10. Runs automated SLURM job to create desired Zarr archives and uploads to S3.
 
 --------------------------------------------------------------------------------------------------------
 
