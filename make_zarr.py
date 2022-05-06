@@ -46,7 +46,6 @@ def make_zarr(item, chunking, data_path, store_path):
     # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
     # rfl_path = os.path.join(data_path, f"{item}_rfl")
     rfl_path = f"{item}_rfl"
-    #rfl_path = os.path.join(data_path, f"{item}_rfl")
     rfl = xr.open_dataset(rfl_path, engine='rasterio')
 
     # Swap to be able to select based on wavelength
@@ -64,7 +63,6 @@ def make_zarr(item, chunking, data_path, store_path):
     # If downloaded data is stored in folder_name == 'aviris_data' or similar, change path to 
     # rdn_path = os.path.join(data_path, f"{item}_rdn_v2z4_clip")
     rdn_path = f"{item}_rdn_v2z4_clip"
-    #rdn_path = os.path.join(data_path, f"{item}_rdn_v2z4_clip")
     rdn = xr.open_dataset(rdn_path, engine='rasterio')
 
     # Swap to be able to select based on wavelength
@@ -120,17 +118,6 @@ def main(opts):
     print(f'Store path: {store_path}', flush=True)
 
     make_zarr(item, chunking, data_path, store_path)
-    
-    # Upload zarr to s3
-    s3 = s3fs.S3FileSystem(anon=False, client_kwargs=dict(region_name='us-west-2'))
-    
-    bucket = 'dh-shift-curated'
-    key = f'aviris/{dataset_date}'
-    s3_key = os.path.join(bucket, key)
-    s3_path = f's3://{s3_key}'
-    
-    s3.put(f"aviris/{dataset_date}/{zarr_filepath}", s3_path + '{}'.format(zarr_filepath), recursive=True)
-    print("S3 move done\n")
 
 if __name__ == '__main__':
     opts = setup_opts()
