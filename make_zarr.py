@@ -114,7 +114,7 @@ def main(opts):
         zarr_filepath = f'{item}_default.zarr'
     else:
         zarr_filepath = f'{item}_{chunking[0]:03d}-{chunking[1]:03d}-{chunking[2]:03d}.zarr'
-    store_path = f'/discover/nobackup/projects/SBG-DO/sbg-do/{username}/{folder_name}/{dataset_date}/{zarr_filepath}'
+    store_path = f'/discover/nobackup/projects/SBG-DO/{username}/{folder_name}/{dataset_date}/{zarr_filepath}'
     print(f'Store path: {store_path}', flush=True)
 
     make_zarr(item, chunking, data_path, store_path)
