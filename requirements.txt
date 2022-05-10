@@ -1,10 +1,6 @@
 # python>=3.8 # not needed if on SMCE
-affine
-attrs
-bokeh
 boto3
 cartopy
-cfgrib
 dask>=2.14.0
 earthpy
 fiona
@@ -15,9 +11,6 @@ geoviews
 h5py
 holoviews
 hvplot
-intake-xarray>=0.6.0
-intake>=0.6.5
-intake-stac>=0.3.0
 jsonschema==3.2.0
 jupyterlab
 matplotlib
@@ -29,17 +22,12 @@ pandas>=1.1
 pathlib2==2.3.6
 pooch
 proj
-pyparsing
 pyproj
-pystac-client
 pystac>=1.2.0
-python-dateutil>=2.7.0
 rasterio
 requests==2.25
 rioxarray
 s3fs
-sat-stac
 shapely
-'stackstac[viz]'
 xarray[complete]
 zarr>=2.4.0
