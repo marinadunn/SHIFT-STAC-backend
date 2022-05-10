@@ -74,3 +74,5 @@ SS:    UTC second at the start of acquisition
 ```  
 ## Future Considerations/Directions
 This code was developed as part of a Spring 2022 NASA GSFC internship. Going forward, we hope to make this applicable to other NASA Earth science datasets.
+
+In addition, we hope to add a parallel cluster to the SHIFT SMCE environment to prevent the need for using the NCCS HPC cluster.
