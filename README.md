@@ -19,7 +19,9 @@ To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk`
 
 -`pipeline.sh`: automated pipeline for downloading AVIRIS-NG data, creating Zarr archives, creating STAC Catalog, and uploading to S3.
 
--`create_stac.py`: script for creating STAC Catalog of AVIRIS-NG data. STAC Items are Zarr archives from various flight paths.
+-`create_stac.ipynb`: Jupyter notebook for creating STAC Catalog of AVIRIS-NG data.
+
+-`zarr_validation.ipynb`: Jupyter notebook for quickly validating Easting & Northing values of Zarr archive are corrrect.
 
 --------------------------------------------------------------------------------------------------------
 
