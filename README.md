@@ -27,12 +27,12 @@ To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk`
 
 ## Pipeline
 
-The pipeline is currently set up to be run on the NASA CENTER FOR CLIMATE SIMULATION (NCCS) high-performance supercomputing cluster ["Discover"](https://www.nccs.nasa.gov/systems/discover). It can be run by executing the bash script `pipeline.sh`. 
+The Zarr archives were created on the NASA CENTER FOR CLIMATE SIMULATION (NCCS) high-performance supercomputing cluster ["Discover"](https://www.nccs.nasa.gov/systems/discover). However the main data pipeline is not NCCS-specific, and can be run by executing the bash script `pipeline.sh`. 
 
 Prerequisites: AWS credentials configured. Any changes to scripts already completed.
 
 This does the following steps:
-1. Runs a specific AWS MFA script, prompting user for MFA code to connect to SHIFT's AWS S3 buckets.
+1. Runs a specific internal AWS MFA script, prompting user for MFA code to connect to SHIFT's AWS S3 buckets. Ignore this if already connected.
 2. Changes to the desired working directory based on user input
 3. Checks if the virtual environment `shift-env` already exists. If so, activates it. If not, creates it then activates it.
 4. Loads the Python 3.9 module
@@ -72,3 +72,5 @@ HH:    UTC hour at the start of acquisition
 NN:    UTC minute at the start of acquisition
 SS:    UTC second at the start of acquisition
 ```  
+## Future Considerations/Directions
+This code was developed as part of a Spring 2022 NASA GSFC internship. Going forward, we hope to make this applicable to other NASA Earth science datasets.
