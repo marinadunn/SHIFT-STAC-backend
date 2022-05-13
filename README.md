@@ -21,6 +21,8 @@ To change chunking strategy: modify `x_chunk`, `y_chunk`, and `wavelength_chunk`
 
 -`create_stac.ipynb`: Jupyter notebook for creating STAC Catalog of AVIRIS-NG data.
 
+-`update_stac.ipynb`: Jupyter notebook for updating STAC Catalog of new AVIRIS-NG data and any other customizations.
+
 -`zarr_validation.ipynb`: Jupyter notebook for quickly validating Easting & Northing values of Zarr archive are corrrect.
 
 --------------------------------------------------------------------------------------------------------
@@ -82,3 +84,4 @@ To apply this code to other similar data, several items will need to be modified
 2. The data paths and chunking schemes can be changed in `make_zarr.py`, as well as the S3 bucket in `run_make_zarr_parallel.py` (or alternatively data items can be explicitly specified).
 3. If creating a new STAC Catalog, data paths and Catalog/Collection/Item/Asset details in `create_stac.ipynb` will need to be modified.
 4. Modify `pipeline.sh`. The working directory will not to be NCCS-specific, and the you will not need to load the NCCS Python 3.9 module. 
+5. To modify SBG-SHIFT STAC Catalog: modify and run `update_stac.ipynb`.
