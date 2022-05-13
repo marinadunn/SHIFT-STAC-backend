@@ -6,8 +6,6 @@ import argparse
 import numpy as np
 import geopandas as gpd
 import os
-import zarr
-import s3fs
 import warnings
 warnings.filterwarnings("ignore")
 
