@@ -41,7 +41,8 @@ This does the following steps:
 7. Checks for SHIFT AVIRIS data download script `get_aviris_data.py`. If not already present, downloads from GitHub.
 8. Downloads flight path data.
 9. Checks for Zarr creation scripts `make_zarr.py` and `run_make_zarr_parallel.py`. If not already present, downloads them from GitHub.
-10. Runs automated SLURM job to create desired Zarr archives and uploads to S3.
+10. Runs automated SLURM job to create desired Zarr archives
+11. Desired files are uploaded to S3.
 
 --------------------------------------------------------------------------------------------------------
 
@@ -73,6 +74,11 @@ NN:    UTC minute at the start of acquisition
 SS:    UTC second at the start of acquisition
 ```  
 ## Future Considerations/Directions
-This code was developed as part of a Spring 2022 NASA GSFC internship. Going forward, we hope to make this applicable to other NASA Earth science datasets.
+This code was developed as part of a Spring 2022 NASA GSFC internship. Going forward, we hope to make this applicable to other NASA Earth science datasets. In addition, we hope to add a parallel cluster to the SHIFT SMCE environment to prevent the need for using the NCCS HPC cluster.
 
-In addition, we hope to add a parallel cluster to the SHIFT SMCE environment to prevent the need for using the NCCS HPC cluster.
+To apply this code to other similar data, several items will need to be modified:
+
+1. The script `get_aviris_data.py` has been designed to specifically download L1 & L2 data from the [JPL AVIRIS-NG data portal](https://avng.jpl.nasa.gov/pub/SHIFT/v0/) using their designated naming schemes. For alternate data coming from a different source, the urls, dates, and S3 bucket will need to be changed. We used wget for ease using NCCS, but the request package can also be used (and may be preferred).
+2. The data paths and chunking schemes can be changed in `make_zarr.py`, as well as the S3 bucket in `run_make_zarr_parallel.py` (or alternatively data items can be explicitly specified).
+3. If creating a new STAC Catalog, data paths and Catalog/Collection/Item/Asset details in `create_stac.ipynb` will need to be modified.
+4. Modify `pipeline.sh`
