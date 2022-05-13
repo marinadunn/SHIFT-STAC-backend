@@ -81,4 +81,4 @@ To apply this code to other similar data, several items will need to be modified
 1. The script `get_aviris_data.py` has been designed to specifically download L1 & L2 data from the [JPL AVIRIS-NG data portal](https://avng.jpl.nasa.gov/pub/SHIFT/v0/) using their designated naming schemes. For alternate data coming from a different source, the urls, dates, and S3 bucket will need to be changed. We used wget for ease using NCCS, but the request package can also be used (and may be preferred).
 2. The data paths and chunking schemes can be changed in `make_zarr.py`, as well as the S3 bucket in `run_make_zarr_parallel.py` (or alternatively data items can be explicitly specified).
 3. If creating a new STAC Catalog, data paths and Catalog/Collection/Item/Asset details in `create_stac.ipynb` will need to be modified.
-4. Modify `pipeline.sh`
+4. Modify `pipeline.sh`. The working directory will not to be NCCS-specific, and the you will not need to load the NCCS Python 3.9 module. 
