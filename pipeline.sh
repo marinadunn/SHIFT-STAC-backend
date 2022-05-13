@@ -93,4 +93,8 @@ echo "*** Start time: $(date) *** "
 # Automatically writes a bash file for each flight path in dataset list & 
 # launches it as a Slurm job
 python3 run_make_zarr_parrallel.py "$dataset_date" "$username"
+
+# change datapath to where zarr data is stored
+# i.e. $ aws s3 cp --recursive /local/path s3://bucket/key/<dataset name>
+aws s3 cp --recursive aviris_data/"$dataset_date"/* s3://dh-shift-curated/aviris/"$dataset_date"/  --exclude'*' --include'.zarr/'
 echo "*** End time: $(date) *** "
